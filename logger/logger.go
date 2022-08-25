@@ -27,7 +27,7 @@ type ApplicationError struct {
 	Error string `json:"error" yaml:"error"`
 }
 
-func (T Logger) WithFormattedOutput(data Formattable, ioWriter io.Writer) {
+func (T Logger) Log(data Formattable, ioWriter io.Writer) {
 	output, err := formatter.OutputData(data, &T.config)
 
 	if err != nil {

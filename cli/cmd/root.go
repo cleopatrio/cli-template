@@ -24,7 +24,7 @@ var (
 		Use:   "version",
 		Short: "Shows the version of the CLI",
 		Run: func(cmd *cobra.Command, args []string) {
-			logger.Custom(format, template).WithFormattedOutput(&version, os.Stdout)
+			logger.Custom(format, template).Log(&version, os.Stdout)
 		},
 	}
 )
