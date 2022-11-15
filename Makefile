@@ -1,5 +1,4 @@
 GOBIN := $(GOPATH)/bin
-IMAGE_NAME = cli
 LIB_NAME = cli
 TARGET_FILE = cli
 
@@ -17,9 +16,6 @@ test: clean-test
 	go test -p 1 ./...
 
 build: build-deps test
-	@go build -o $(TARGET_FILE)
-
-build-for-docker:
 	@go build -o $(TARGET_FILE)
 
 install: build
