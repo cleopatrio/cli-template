@@ -1,4 +1,4 @@
-package printer
+package core
 
 import (
 	"io"
@@ -6,20 +6,18 @@ import (
 	"github.com/jedib0t/go-pretty/v6/table"
 )
 
-type (
-	TableRowOptions struct {
-		Simplified bool
-	}
+type TableOptions struct {
+	ColumnConfig *[]table.ColumnConfig
+	Title        *string
+	Header       table.Row
+	Footer       *table.Row
+	Style        *table.Style
+	OutputMirror io.Writer
+	SortField    string
+	SortOrder    table.SortMode
+}
 
-	TableOptions struct {
-		ColumnConfig *[]table.ColumnConfig
-		Title        *string
-		Header       table.Row
-		Footer       *table.Row
-		Style        *table.Style
-		OutputMirror io.Writer
-	}
-)
+type TableRowOptions struct{}
 
 func Initialize(opts TableOptions) table.Writer {
 	t := table.NewWriter()
@@ -43,6 +41,16 @@ func Initialize(opts TableOptions) table.Writer {
 
 	if opts.Footer != nil {
 		t.AppendFooter(*opts.Footer)
+	}
+
+	if opts.SortField != "" {
+		t.SortBy([]table.SortBy{{Name: opts.SortField, Mode: func() table.SortMode {
+			if opts.SortOrder < 0 {
+				return opts.SortOrder
+			}
+
+			return table.Dsc
+		}()}})
 	}
 
 	return t
