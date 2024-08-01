@@ -3,11 +3,10 @@ package core
 import (
 	"bufio"
 	"flag"
-	"log"
 	"os"
 	"strings"
 
-	"github.com/sirupsen/logrus"
+	"github.com/charmbracelet/log"
 )
 
 func ReadFromStdin() (input string, err error) {
@@ -20,11 +19,11 @@ func ReadFromStdin() (input string, err error) {
 
 	input, err = reader.ReadString(';')
 	if err != nil {
-		log.Fatalln("failed to read input")
+		log.Fatal("failed to read input")
 	}
 
 	input = strings.TrimSpace(input)
-	logrus.Debug("File content:\n", input)
+	log.Debug("File content:\n", input)
 
 	return input, err
 }

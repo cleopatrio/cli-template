@@ -1,4 +1,4 @@
-package protocols
+package dbsql
 
 import (
 	"context"
@@ -23,7 +23,7 @@ type DBConnectOptions struct {
 	DB SqlBackend
 
 	Adapter        SQLAdapter // [postgresql, sqlite3]
-	DSN            string     // i.e postgresql://user:pass@host:5432/redic
-	Filename       string     // i.e "redic.sqlite"
+	DSN            string     // i.e postgresql://user:pass@host:5432/cli
+	Filename       string     // i.e "cli.sqlite"
 	VerboseLogging bool
 }

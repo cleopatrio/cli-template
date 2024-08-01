@@ -1,7 +1,8 @@
 package web
 
 import (
-	"context"
+	"clitemplate/cmd/web/middleware"
+	"clitemplate/cmd/web/negotiators/html"
 	"embed"
 	"net/http"
 	"time"
@@ -18,9 +19,6 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/requestid"
 	"github.com/gofiber/fiber/v2/middleware/skip"
 	"github.com/google/uuid"
-	"github.com/oleoneto/redic/app"
-	"github.com/oleoneto/redic/cmd/web/middleware"
-	"github.com/oleoneto/redic/cmd/web/negotiators/html"
 )
 
 //go:embed public
@@ -50,11 +48,11 @@ func CreateServer() *fiber.App {
 
 	server.Use(healthcheck.New(healthcheck.Config{
 		LivenessProbe: func(c *fiber.Ctx) bool {
-			_, err := app.DatabaseEngine.ExecContext(context.TODO(), "SELECT 1")
+			err := c.Context().Err() // TODO: Implement probe
 			return err == nil
 		},
 		ReadinessProbe: func(c *fiber.Ctx) bool {
-			_, err := app.DatabaseEngine.ExecContext(context.TODO(), "SELECT 1")
+			err := c.Context().Err() // TODO: Implement probe
 			return err == nil
 		},
 	}))

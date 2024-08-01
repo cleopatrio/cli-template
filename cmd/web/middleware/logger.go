@@ -5,8 +5,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/charmbracelet/log"
 	"github.com/gofiber/fiber/v2"
-	"github.com/sirupsen/logrus"
 )
 
 func RequestLoggerMiddleware(c *fiber.Ctx) error {
@@ -33,7 +33,7 @@ func RequestLoggerMiddleware(c *fiber.Ctx) error {
 		strings.Join(queries, "&"),
 	)
 
-	logrus.Infoln(
+	log.Info(
 		c.Protocol(),
 		c.Method(),
 		url, "-",

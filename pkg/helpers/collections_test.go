@@ -1,10 +1,9 @@
 package helpers_test
 
 import (
+	"clitemplate/pkg/helpers"
 	"reflect"
 	"testing"
-
-	"github.com/oleoneto/redic/app/pkg/helpers"
 )
 
 // MARK: Collection Helpers

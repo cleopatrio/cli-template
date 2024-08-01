@@ -26,7 +26,7 @@ type Version struct {
 }
 
 func (v *Version) String() string {
-	return fmt.Sprintf(`redic %v.%v.%v`, v.Major, v.Minor, v.Patch)
+	return fmt.Sprintf(`cli %v.%v.%v`, v.Major, v.Minor, v.Patch)
 }
 
 func (v *Version) TableWriter() table.Writer {

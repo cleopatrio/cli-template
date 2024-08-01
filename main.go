@@ -11,7 +11,7 @@ import (
 //go:embed data
 var data embed.FS
 
-var BuildHash string = "unset"
+var BuildHash string = ""
 
 func main() {
 	cli.Execute(data, BuildHash)

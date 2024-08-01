@@ -19,6 +19,26 @@
       }
     }
   </script>
+  <script type="module">
+    import { Application, Controller } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js"
+    window.Stimulus = Application.start()
+
+    Stimulus.register("hello", class extends Controller {
+      static targets = ["name"]
+
+      greet() {
+        console.log(`Hello, ${this.name}!`)
+      }
+
+      get name() {
+        return this.nameTarget.value
+      }
+
+      connect() {
+        console.log("Hello, Stimulus!", this.element)
+      }
+    })
+  </script>
 </head>
 
 <body class="main-content">

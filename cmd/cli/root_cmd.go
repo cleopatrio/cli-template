@@ -3,10 +3,10 @@ package cli
 import (
 	"embed"
 	"fmt"
-	"log"
 
 	"clitemplate/cmd/cli/core"
 
+	"github.com/charmbracelet/log"
 	"github.com/mitchellh/go-homedir"
 	"github.com/oleoneto/go-toolkit/files"
 	"github.com/spf13/cobra"
@@ -27,7 +27,7 @@ var RootCmd = &cobra.Command{
 	PersistentPostRun: state.AfterHook,
 	PostRun: func(cmd *cobra.Command, args []string) {
 		if buildHash != "" {
-			fmt.Println("build", buildHash)
+			log.Debug("build", buildHash)
 		}
 	},
 	Run: func(cmd *cobra.Command, args []string) { cmd.Help() },
@@ -46,7 +46,7 @@ func initConfig() {
 	} else {
 		home, err := homedir.Dir()
 		if err != nil {
-			log.Fatalln(err)
+			log.Fatal(err)
 		}
 
 		path := fmt.Sprintf("%v/%s", home, state.Flags.ConfigDir.Name)
@@ -59,11 +59,11 @@ func initConfig() {
 	if err := viper.ReadInConfig(); err != nil {
 		home, herr := homedir.Dir()
 		if herr != nil {
-			log.Fatalln(err)
+			log.Fatal(err)
 		}
 
 		if f := state.Flags.ConfigDir.Create(files.FileGenerator{}, home); len(f) == 0 {
-			log.Fatalln("Cannot read config. Hint: You may need to run `init` to create the config file")
+			log.Fatal("Cannot read config. Hint: You may need to run `init` to create the config file")
 		}
 	}
 }
@@ -77,7 +77,7 @@ func Execute(vfs embed.FS, buildHash string) error {
 	RootCmd.PersistentFlags().StringVarP(&state.Flags.OutputTemplate, "output-template", "y", state.Flags.OutputTemplate, "template (used when output format is 'gotemplate')")
 
 	// Migrator configuration
-	RootCmd.PersistentFlags().VarP(state.Flags.Engine, "adapter", "a", "database adapter")
+	RootCmd.PersistentFlags().VarP(state.Flags.Engine, "db-adapter", "a", "database adapter")
 	RootCmd.PersistentFlags().BoolVar(&state.Flags.TimeExecutions, "time", state.Flags.TimeExecutions, "time executions")
 
 	// MARK: Run

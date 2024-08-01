@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"clitemplate/cmd/cli/core/formatters"
-	"clitemplate/pkg/protocols"
+	"clitemplate/pkg/dbsql"
 
 	"github.com/drewstinnett/gout/v2"
 	"github.com/drewstinnett/gout/v2/config"
@@ -36,7 +36,7 @@ type CommandState struct {
 	Flags              CommandFlags
 	ExecutionStartTime time.Time
 	ExecutionExitLog   []any
-	Database           protocols.SqlBackend
+	Database           dbsql.SqlBackend
 }
 
 var cliDir = ".clitempla"
