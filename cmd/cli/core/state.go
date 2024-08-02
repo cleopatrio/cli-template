@@ -29,6 +29,7 @@ type CommandFlags struct {
 	HomeDirectory   string
 	CLIConfig       string
 	ConfigDir       files.File
+	File            string
 }
 
 type CommandState struct {

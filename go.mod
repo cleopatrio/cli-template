@@ -2,8 +2,6 @@ module clitemplate
 
 go 1.22
 
-toolchain go1.22.2
-
 require (
 	github.com/charmbracelet/glamour v0.7.0
 	github.com/charmbracelet/log v0.4.0
@@ -23,6 +21,7 @@ require (
 	github.com/spf13/cobra v1.8.0
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.19.0
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
@@ -80,5 +79,4 @@ require (
 	golang.org/x/sys v0.21.0 // indirect
 	golang.org/x/text v0.16.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

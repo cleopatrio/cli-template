@@ -3,16 +3,21 @@ package httpclient
 import (
 	"bytes"
 	"io"
+	"net/http"
 )
 
-type RequestBody struct {
-	Data  []byte
-	state bytes.Buffer
+type Body struct{ state bytes.Buffer }
+
+func (b *Body) Close() error { return io.NopCloser(&b.state).Close() }
+
+func (b *Body) Read(buffer []byte) (int, error) { return b.state.Read(buffer) }
+
+func NewBody(data []byte) io.ReadCloser {
+	if data == nil || len(data) < 1 {
+		return http.NoBody
+	}
+	return &Body{*bytes.NewBuffer(data)}
 }
 
-func (rb *RequestBody) Close() error { return io.NopCloser(&rb.state).Close() }
-
-func (rb *RequestBody) Read(buffer []byte) (int, error) { return rb.state.Read(buffer) }
-
-// RequestBody implements io.ReadCloser
-var _ io.ReadCloser = (*RequestBody)(nil)
+// Body implements io.ReadCloser
+var _ io.ReadCloser = (*Body)(nil)

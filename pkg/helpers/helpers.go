@@ -2,12 +2,24 @@
 package helpers
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"runtime"
 	"strings"
 )
 
 func PointerTo[T any](value T) *T { return &value }
+
+// JSONPrettyPrint - produces a JSON string with proper spacing and indentation.
+func JSONPrettyPrint(raw string) string {
+	var out bytes.Buffer
+	if err := json.Indent(&out, []byte(raw), "", "\t"); err != nil {
+		return raw
+	}
+
+	return out.String()
+}
 
 func FuncName() string {
 	pc, _, _, _ := runtime.Caller(1)
