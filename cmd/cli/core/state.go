@@ -1,6 +1,7 @@
 package core
 
 import (
+	"sync"
 	"time"
 
 	"clitemplate/cmd/cli/core/formatters"
@@ -29,7 +30,8 @@ type CommandFlags struct {
 	HomeDirectory   string
 	CLIConfig       string
 	ConfigDir       files.File
-	File            string
+	File            FileFlag
+	Stdin           string
 }
 
 type CommandState struct {
@@ -62,13 +64,18 @@ var defaultFlags = CommandFlags{
 	),
 }
 
-func NewCommandState() *CommandState {
-	command := CommandState{
-		Writer: gout.New(),
-		Flags:  defaultFlags,
-	}
+var once sync.Once
+var state *CommandState
 
-	return &command
+func NewCommandState() *CommandState {
+	once.Do(func() {
+		state = &CommandState{
+			Writer: gout.New(),
+			Flags:  defaultFlags,
+		}
+	})
+
+	return state
 }
 
 func (c *CommandState) SetFormatter(cmd *cobra.Command, args []string) {

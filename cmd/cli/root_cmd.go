@@ -71,10 +71,12 @@ func initConfig() {
 func Execute(vfs embed.FS, buildHash string) error {
 	virtualFS = vfs
 
-	// MARK: Set up global glags
+	// MARK: Set up global flags
 	RootCmd.PersistentFlags().BoolVar(&state.Flags.VerboseLogging, "verbose", state.Flags.VerboseLogging, "enable detailed logging")
 	RootCmd.PersistentFlags().VarP(state.Flags.OutputFormat, "output", "o", "output format")
 	RootCmd.PersistentFlags().StringVarP(&state.Flags.OutputTemplate, "output-template", "y", state.Flags.OutputTemplate, "template (used when output format is 'gotemplate')")
+
+	RootCmd.Flags().VarP(&state.Flags.File, "file", "f", "")
 
 	// Migrator configuration
 	RootCmd.PersistentFlags().VarP(state.Flags.Engine, "db-adapter", "a", "database adapter")

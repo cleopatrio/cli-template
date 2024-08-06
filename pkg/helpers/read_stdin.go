@@ -6,13 +6,12 @@ import (
 	"strings"
 )
 
-func ReadStdin() (input string, err error) {
-	stdin, err := io.ReadAll(os.Stdin)
+func ReadStdin() ([]byte, error) { return io.ReadAll(os.Stdin) }
+
+func ReadStdinString() (string, error) {
+	stdin, err := ReadStdin()
 	if err != nil {
 		return "", err
 	}
-
-	content := strings.TrimSpace(string(stdin))
-
-	return content, err
+	return strings.TrimSpace(string(stdin)), nil
 }

@@ -12,11 +12,11 @@ type FlagEnum struct {
 	Default string
 }
 
-func (ofe FlagEnum) String() string { return ofe.Default }
+func (e FlagEnum) String() string { return e.Default }
 
-func (ofe *FlagEnum) Type() string { return "string" }
+func (e *FlagEnum) Type() string { return "string" }
 
-func (ofe *FlagEnum) Set(value string) error {
+func (e *FlagEnum) Set(value string) error {
 	isIncluded := func(opts []string, v string) bool {
 		for _, opt := range opts {
 			if v == opt {
@@ -27,12 +27,13 @@ func (ofe *FlagEnum) Set(value string) error {
 		return false
 	}
 
-	if !isIncluded(ofe.Allowed, value) {
-		return fmt.Errorf("%s is not a supported output format: %s", value, strings.Join(ofe.Allowed, ","))
+	if !isIncluded(e.Allowed, value) {
+		return fmt.Errorf("%s is not a supported output format: %s", value, strings.Join(e.Allowed, ","))
 	}
 
-	ofe.Default = value
+	e.Default = value
 	return nil
 }
 
+// FileEnum implements pflag.Value
 var _ pflag.Value = (*FlagEnum)(nil)
