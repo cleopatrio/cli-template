@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	"clitemplate/cmd/cli/core/formatters"
+	"clitemplate/pkg/core/formatters"
 	"clitemplate/pkg/dbsql"
 
 	"github.com/drewstinnett/gout/v2"
